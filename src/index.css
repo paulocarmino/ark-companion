@@ -1,0 +1,341 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── ARK Companion Theme — "Primitive Tek Terminal" ────────── */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* ARK custom colors — earthy Primitive Tek palette */
+  --color-ark-bg: #0c0f0a;
+  --color-ark-card: #161c14;
+  --color-ark-card-hover: #1e2a1a;
+  --color-ark-tek: var(--ark-primary);
+  --color-ark-element: #8b6914;
+  --color-ark-amber: #d4a017;
+  --color-ark-text: #d4c9a8;
+  --color-ark-text-dim: #7a7058;
+  --color-ark-text-bright: #f0e6cc;
+  --color-ark-danger: #ef4444;
+  --color-ark-success: #22c55e;
+  --color-ark-lore: #c9a84c;
+  --color-ark-mechanic: #8faa3b;
+  --color-ark-mega: #f59e0b;
+  --color-ark-border: #2a3326;
+  --color-ark-border-active: #ffffff15;
+
+  /* Fonts */
+  --font-display: "Teko", sans-serif;
+  --font-body: "Exo 2", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+:root {
+  --radius: 0.625rem;
+  --ark-primary: #d4a017;
+
+  --background: #0c0f0a;
+  --foreground: #d4c9a8;
+  --card: #161c14;
+  --card-foreground: #d4c9a8;
+  --popover: #161c14;
+  --popover-foreground: #d4c9a8;
+  --primary: var(--ark-primary);
+  --primary-foreground: #0c0f0a;
+  --secondary: #1e2a1a;
+  --secondary-foreground: #d4c9a8;
+  --muted: #1e2a1a;
+  --muted-foreground: #7a7058;
+  --accent: #1e2a1a;
+  --accent-foreground: #f0e6cc;
+  --destructive: #ef4444;
+  --border: #2a3326;
+  --input: #2a3326;
+  --ring: var(--ark-primary);
+  --chart-1: #d4a017;
+  --chart-2: #8b6914;
+  --chart-3: #c9a84c;
+  --chart-4: #8faa3b;
+  --chart-5: #ef4444;
+  --sidebar: #0e120c;
+  --sidebar-foreground: #d4c9a8;
+  --sidebar-primary: var(--ark-primary);
+  --sidebar-primary-foreground: #0c0f0a;
+  --sidebar-accent: #1e2a1a;
+  --sidebar-accent-foreground: #f0e6cc;
+  --sidebar-border: #2a3326;
+  --sidebar-ring: var(--ark-primary);
+}
+
+/* Per-map accent override */
+[data-map="the-island"] {
+  --ark-primary: #d4a017;
+}
+[data-map="astraeos"] {
+  --ark-primary: #c77d15;
+}
+
+/* ── Base Layer ───────────────────────────────────────────────── */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-ark-bg text-ark-text antialiased;
+    font-family: var(--font-body);
+    font-size: 16px;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+/* ── Custom Scrollbar ─────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3326;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a4a36;
+}
+
+/* ── Tek Utilities ────────────────────────────────────────────── */
+
+.tek-border {
+  border: 1px solid #2a3326;
+  box-shadow: inset 0 0 0 1px rgba(212, 160, 23, 0.05);
+}
+
+.tek-glow {
+  box-shadow:
+    0 0 15px color-mix(in srgb, var(--ark-primary) 15%, transparent),
+    0 0 30px color-mix(in srgb, var(--ark-primary) 5%, transparent);
+}
+
+.tek-glow-sm {
+  box-shadow: 0 0 10px color-mix(in srgb, var(--ark-primary) 10%, transparent);
+}
+
+.tek-glass {
+  background: rgba(22, 28, 20, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 160, 23, 0.1);
+  border-radius: 0.5rem;
+}
+
+.circuit-line {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--ark-primary) 8%, transparent) 20%,
+    color-mix(in srgb, var(--ark-primary) 15%, transparent) 50%,
+    color-mix(in srgb, var(--ark-primary) 8%, transparent) 80%,
+    transparent 100%
+  );
+  height: 1px;
+}
+
+/* ── Drag & Drop ─────────────────────────────────────────────── */
+
+.drag-handle {
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 2px;
+  opacity: 0.4;
+  transition: opacity 0.15s ease;
+}
+.drag-handle:hover {
+  opacity: 0.8;
+}
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drag-handle-bar {
+  width: 16px;
+  height: 2px;
+  border-radius: 1px;
+  background: #7a7058;
+}
+
+.sortable-dragging {
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(212, 160, 23, 0.2);
+  z-index: 50;
+}
+
+/* ── Collapsible Section Animation ───────────────────────────── */
+
+.section-collapsible-content[data-state="open"] {
+  animation: collapsible-open 0.2s ease-out;
+}
+.section-collapsible-content[data-state="closed"] {
+  animation: collapsible-close 0.15s ease-out;
+}
+
+@keyframes collapsible-open {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes collapsible-close {
+  from {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+/* ── Animations ───────────────────────────────────────────────── */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px color-mix(in srgb, var(--ark-primary) 20%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 16px color-mix(in srgb, var(--ark-primary) 40%, transparent);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s ease-out;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ── Progress Ring ────────────────────────────────────────────── */
+
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.35s ease;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* ── Phase Button ─────────────────────────────────────────────── */
+
+.phase-btn {
+  transition: all 0.2s ease;
+}
+.phase-btn:hover {
+  background: #1e2a1a;
+  border-color: color-mix(in srgb, var(--ark-primary) 25%, transparent);
+}
+.phase-btn[data-active="true"] {
+  background: #1e2a1a;
+  border-color: color-mix(in srgb, var(--ark-primary) 40%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--ark-primary) 8%, transparent);
+}
+
+/* ── Step Row ─────────────────────────────────────────────────── */
+
+.step-row {
+  transition: background 0.15s ease;
+}
+.step-row:hover {
+  background: #1e2a1a;
+}
+
+/* ── Mechanic Card ────────────────────────────────────────────── */
+
+.mechanic-card {
+  transition: all 0.2s ease;
+}
+.mechanic-card:hover {
+  border-color: color-mix(in srgb, #8faa3b 30%, transparent) !important;
+}
+
+/* ── Section with left accent bar ─────────────────────────────── */
+
+.section-accent {
+  position: relative;
+}
+.section-accent::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  border-radius: 1px;
+}
+
+/* ── Popover / Command overrides ──────────────────────────────── */
+
+[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
+}
