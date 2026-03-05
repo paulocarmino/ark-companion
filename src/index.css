@@ -334,6 +334,49 @@
   border-radius: 1px;
 }
 
+/* ── FAB (Floating Action Button) ────────────────────────────── */
+
+.fab-tek {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 40;
+  width: 56px;
+  height: 56px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(22, 28, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, var(--ark-primary) 30%, transparent);
+  box-shadow: 0 0 15px color-mix(in srgb, var(--ark-primary) 15%, transparent),
+    0 0 30px color-mix(in srgb, var(--ark-primary) 5%, transparent);
+  color: var(--ark-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.fab-tek:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--ark-primary) 25%, transparent),
+    0 0 40px color-mix(in srgb, var(--ark-primary) 10%, transparent);
+}
+.fab-tek:active {
+  transform: scale(0.95);
+}
+
+/* ── Sheet Overrides ─────────────────────────────────────────── */
+
+[data-slot="sheet-overlay"] {
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(2px);
+}
+
+[data-slot="sheet-content"] {
+  background: var(--color-ark-bg) !important;
+  border-color: var(--color-ark-border) !important;
+}
+
 /* ── Popover / Command overrides ──────────────────────────────── */
 
 [data-radix-popper-content-wrapper] {

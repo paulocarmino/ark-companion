@@ -52,7 +52,7 @@ export function SortableSection({
       <Collapsible open={!isCollapsed} onOpenChange={onToggleCollapse}>
         <div className="flex items-center gap-1">
           {/* Drag handle — separate from collapse trigger */}
-          <div className="drag-handle" {...attributes} {...listeners}>
+          <div className="drag-handle ml-1" {...attributes} {...listeners}>
             <div className="drag-handle-bar" />
             <div className="drag-handle-bar" />
             <div className="drag-handle-bar" />

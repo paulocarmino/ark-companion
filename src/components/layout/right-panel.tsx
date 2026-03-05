@@ -8,6 +8,7 @@ import {
   useSensors,
   type DragEndEvent,
 } from "@dnd-kit/core";
+import { cn } from "@/lib/utils";
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -57,7 +58,12 @@ const SECTION_META: Record<
   },
 };
 
-export function RightPanel({ phase }: { phase: Phase }) {
+interface RightPanelProps {
+  phase: Phase;
+  className?: string;
+}
+
+export function RightPanel({ phase, className }: RightPanelProps) {
   const { sectionOrder, reorder, toggleCollapse, isSectionCollapsed } =
     usePanelLayout();
 
@@ -82,7 +88,7 @@ export function RightPanel({ phase }: { phase: Phase }) {
 
   if (visibleSections.length === 0) {
     return (
-      <div className="w-[380px] shrink-0 border-l border-ark-border flex items-center justify-center">
+      <div className={cn("w-[380px] shrink-0 border-l border-ark-border flex items-center justify-center", className)}>
         <div className="text-center text-ark-text-dim text-sm font-body p-6">
           Sem informacoes adicionais nesta fase.
         </div>
@@ -172,8 +178,8 @@ export function RightPanel({ phase }: { phase: Phase }) {
   }
 
   return (
-    <div className="w-[380px] shrink-0 border-l border-ark-border">
-      <ScrollArea className="h-[calc(100vh-73px)]">
+    <div className={cn("w-[380px] shrink-0 border-l border-ark-border", className)}>
+      <ScrollArea className={className ? "h-full" : "h-[calc(100vh-73px)]"}>
         <div className="p-3 animate-fade-in-up" key={phase.id}>
           <DndContext
             sensors={sensors}
