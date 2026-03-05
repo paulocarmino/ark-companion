@@ -11,3 +11,10 @@ export function getMapById(id: string): MapData | undefined {
 export function getDefaultMapId(): string {
   return ALL_MAPS[0].id;
 }
+
+export function getMapIdFromPath(pathname: string): string | undefined {
+  const slug = pathname.replace(/^\/+|\/+$/g, "");
+  if (!slug) return undefined;
+  const map = ALL_MAPS.find((m) => m.id === slug);
+  return map?.id;
+}

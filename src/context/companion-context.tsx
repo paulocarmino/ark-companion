@@ -7,7 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import { loadProgress, saveProgress } from "@/lib/storage";
-import { getDefaultMapId } from "@/data/maps";
+import { getDefaultMapId, getMapIdFromPath } from "@/data/maps";
 
 interface State {
   activeMapId: string;
@@ -66,9 +66,10 @@ const CompanionContext = createContext<CompanionContextValue | null>(null);
 
 export function CompanionProvider({ children }: { children: ReactNode }) {
   const defaultMapId = getDefaultMapId();
+  const initialMapId = getMapIdFromPath(window.location.pathname) ?? defaultMapId;
 
   const [state, dispatch] = useReducer(reducer, {
-    activeMapId: defaultMapId,
+    activeMapId: initialMapId,
     activePhaseId: "",
     completedSteps: {},
   });
@@ -82,13 +83,33 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
       dispatch({
         type: "HYDRATE",
         state: {
-          activeMapId: saved.activeMapId || defaultMapId,
+          activeMapId: initialMapId,
           completedSteps: saved.completedSteps,
         },
       });
     }
     hydrated.current = true;
-  }, [defaultMapId]);
+  }, [initialMapId]);
+
+  // Sync URL → state on popstate (browser back/forward)
+  useEffect(() => {
+    const onPopState = () => {
+      const mapId = getMapIdFromPath(window.location.pathname);
+      if (mapId && mapId !== state.activeMapId) {
+        dispatch({ type: "SET_MAP", mapId });
+      }
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [state.activeMapId]);
+
+  // Sync state → URL when map changes
+  useEffect(() => {
+    const expectedPath = `/${state.activeMapId}`;
+    if (window.location.pathname !== expectedPath) {
+      window.history.pushState(null, "", expectedPath);
+    }
+  }, [state.activeMapId]);
 
   // Persist to localStorage on change
   useEffect(() => {
