@@ -64,12 +64,9 @@ export function LeftSidebar({ currentMap, onPhaseSelect, onReset }: LeftSidebarP
                     }}
                   />
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-1">
+                    <div className="flex items-start justify-between gap-1">
                       <span
-                        className={cn(
-                          "text-sm font-semibold font-body",
-                          !inSheet && "truncate"
-                        )}
+                        className="text-sm font-semibold font-body min-w-0"
                         style={{
                           color: isActive
                             ? "var(--ark-primary)"
@@ -79,7 +76,7 @@ export function LeftSidebar({ currentMap, onPhaseSelect, onReset }: LeftSidebarP
                         {i + 1}. {phase.title}
                       </span>
                       {pct === 100 && (
-                        <Check className="size-3.5 text-ark-success shrink-0" />
+                        <Check className="size-3.5 text-ark-success shrink-0 mt-0.5" />
                       )}
                     </div>
                     <span className="text-xs text-ark-text-dim font-body">
